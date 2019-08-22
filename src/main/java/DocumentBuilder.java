@@ -1,3 +1,4 @@
+import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
 import java.io.File;
@@ -10,28 +11,28 @@ import java.util.logging.Logger;
 public class DocumentBuilder {
 
     private final static Logger LOGGER = AppLogger.getAppLogger().get(Logger.GLOBAL_LOGGER_NAME);
-    
+
     public static CustomDocuments getOrderDocument(int numberOfOutlets, int numberOfOrdersPerOutlets) {
 
-        String[] status = new String[]{"ACCEPTED","AUTHORISED","SUCCESS"};
+        String[] status = new String[]{"ACCEPTED", "AUTHORISED", "SUCCESS"};
         CustomDocuments customDocuments = new CustomDocuments();
         List<Document> documents = new ArrayList<>();
         List<Document> events = new ArrayList<>();
-        for (int i = 1; i<=numberOfOutlets; ++i){
+        for (int i = 1; i <= numberOfOutlets; ++i) {
             String outletId = UUID.randomUUID().toString();
             LOGGER.info("======================================");
-            LOGGER.info("building records for outlet number "+i);
+            LOGGER.info("building records for outlet number " + i);
             LOGGER.info("======================================");
-            for (int j = 1; j<=numberOfOrdersPerOutlets; ++j){
+            for (int j = 1; j <= numberOfOrdersPerOutlets; ++j) {
                 LOGGER.info("------------------------------------");
-                LOGGER.info("# building records for order number "+j);
+                LOGGER.info("# building records for order number " + j);
                 LOGGER.info("------------------------------------");
                 String orderId = UUID.randomUUID().toString();
                 String orderJson = getData(outletId, orderId);
                 documents.add(Document.parse(orderJson));
-                for(int e=1; e<=3;++e){
-                    LOGGER.info("* building records for event "+status[e-1]);
-                    String eventJson = getEventData(outletId, orderId, status[e-1]);
+                for (int e = 1; e <= 3; ++e) {
+                    LOGGER.info("* building records for event " + status[e - 1]);
+                    String eventJson = getEventData(outletId, orderId, status[e - 1]);
                     events.add(Document.parse(eventJson));
                 }
             }
@@ -72,4 +73,39 @@ public class DocumentBuilder {
         }
         return null;
     }
+
+    public static void buildAndSaveDocument(int numberOfOutlets, int numberOfOrdersPerOutlets, MongoCollection<Document> orderCollection, MongoCollection<Document> interactionEvents) {
+
+
+        String[] status = new String[]{"ACCEPTED", "AUTHORISED", "SUCCESS"};
+        for (int i = 1; i <= numberOfOutlets; ++i) {
+            List<Document> documents = new ArrayList<>();
+            List<Document> events = new ArrayList<>();
+
+            String outletId = UUID.randomUUID().toString();
+            LOGGER.info("======================================");
+            LOGGER.info("building records for outlet number " + i);
+            LOGGER.info("======================================");
+            for (int j = 1; j <= numberOfOrdersPerOutlets; ++j) {
+                LOGGER.info("------------------------------------");
+                LOGGER.info("# building records for order number " + j);
+                LOGGER.info("------------------------------------");
+                String orderId = UUID.randomUUID().toString();
+                String orderJson = getData(outletId, orderId);
+                documents.add(Document.parse(orderJson));
+                for (int e = 1; e <= 3; ++e) {
+                    LOGGER.info("* building records for event " + status[e - 1]);
+                    String eventJson = getEventData(outletId, orderId, status[e - 1]);
+                    events.add(Document.parse(eventJson));
+                }
+            }
+            orderCollection.insertMany(documents);
+            LOGGER.info("Order Created successfully");
+
+            interactionEvents.insertMany(events);
+            LOGGER.info("Events Created successfully");
+
+        }
+    }
+
 }
