@@ -5,24 +5,32 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class DocumentBuilder {
 
+    private final static Logger LOGGER = AppLogger.getAppLogger().get(Logger.GLOBAL_LOGGER_NAME);
+    
     public static CustomDocuments getOrderDocument(int numberOfOutlets, int numberOfOrdersPerOutlets) {
 
-        String[] status = new String[]{"asd","asd","asd"};
+        String[] status = new String[]{"ACCEPTED","AUTHORISED","SUCCESS"};
         CustomDocuments customDocuments = new CustomDocuments();
         List<Document> documents = new ArrayList<>();
         List<Document> events = new ArrayList<>();
-
         for (int i = 1; i<=numberOfOutlets; ++i){
             String outletId = UUID.randomUUID().toString();
+            LOGGER.info("======================================");
+            LOGGER.info("building records for outlet number "+i);
+            LOGGER.info("======================================");
             for (int j = 1; j<=numberOfOrdersPerOutlets; ++j){
+                LOGGER.info("------------------------------------");
+                LOGGER.info("# building records for order number "+j);
+                LOGGER.info("------------------------------------");
                 String orderId = UUID.randomUUID().toString();
                 String orderJson = getData(outletId, orderId);
                 documents.add(Document.parse(orderJson));
-
                 for(int e=1; e<=3;++e){
+                    LOGGER.info("* building records for event "+status[e-1]);
                     String eventJson = getEventData(outletId, orderId, status[e-1]);
                     events.add(Document.parse(eventJson));
                 }
