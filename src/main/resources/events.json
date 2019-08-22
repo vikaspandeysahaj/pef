@@ -1,0 +1,15 @@
+{
+  "partitionKey" : "2e8dea00-72f0-42f9-b626-ac0e05b938c3-2019-08-14",
+  "eventGroupType" : "GATEWAY_RISK",
+  "eventName" : "GATEWAY_RISK_PRE_AUTH_ACCEPTED",
+  "status" : "RemoveMeWithActualStatus",
+  "timestamp" : "2019-08-14T06:26:05.172Z",
+  "orderRef" : "RemoveMeWithActualReference",
+  "payload" : {
+    "reference" : "d27f915a-9830-4b23-babb-6d7f86e400a5",
+    "orderStatus" : "OPEN",
+    "orderResource" : "http://transaction-service/transactions/outlets/2e8dea00-72f0-42f9-b626-ac0e05b938c3/orders/d27f915a-9830-4b23-babb-6d7f86e400a5"
+  },
+  "outletId" : "RemoveMeWithActualOutletId",
+  "_class" : "ae.network.reporting.collections.event.InteractionEvent"
+}

@@ -1,0 +1,63 @@
+{
+  "partitionKey" : "2e8dea00-72f0-42f9-b626-ac0e05b938c3-2019-08-14",
+  "reference" : "RemoveMeWithActualReference",
+  "action" : "SALE",
+  "language" : "en",
+  "amount" : {
+    "currency" : "AED",
+    "value" : 405
+  },
+  "type" : "SINGLE",
+  "status" : "CLOSE",
+  "channel" : "Ecommerce",
+  "createDateTime" : "2019-08-14T06:26:04.531Z",
+  "outletId" : "RemoveMeWithActualOutletId",
+  "emailAddress" : "mustbevalidemail@foo.com",
+  "paymentCards" : [
+    {
+      "expiry" : "2022-12",
+      "cardholderName" : "Mr Stay-Puff",
+      "maskedPanNumber" : "427277******0011",
+      "paymentMethod" : "VISA",
+      "paymentType" : "card",
+      "paymentReference" : "5944db67-f008-4fd6-b0ec-eea84d276931",
+      "cardScheme" : "VISA",
+      "payload" : {}
+    }
+  ],
+  "billingAddress" : {
+    "firstName" : "Sherlock",
+    "lastName" : "Holmes",
+    "address1" : "221A Baker Street",
+    "city" : "London",
+    "countryCode" : "GB"
+  },
+  "orderSummary" : {
+    "items" : [
+      {
+        "description" : "Comfy Chair",
+        "totalPrice" : {
+          "currency" : "AED",
+          "value" : 405
+        },
+        "quantity" : 1
+      }
+    ],
+    "shipping" : {
+      "currency" : "AED",
+      "value" : 0
+    },
+    "tax" : {
+      "currency" : "AED",
+      "value" : 0
+    },
+    "total" : {
+      "currency" : "AED",
+      "value" : 405
+    }
+  },
+  "aborted" : false,
+  "referrer" : "urn:Ecom:d27f915a-9830-4b23-babb-6d7f86e400a5",
+  "lastEventName" : "CAPTURED",
+  "_class" : "ae.network.reporting.collections.order.OrderDetails"
+}
