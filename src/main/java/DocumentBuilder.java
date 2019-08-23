@@ -1,3 +1,4 @@
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
@@ -106,6 +107,49 @@ public class DocumentBuilder {
             LOGGER.info("Events Created successfully");
 
         }
+    }
+
+    public static void createIndexs(MongoCollection<Document> orderCollection, MongoCollection<Document> interactionEvents){
+        // Create order Index
+        BasicDBObject index = new BasicDBObject("outletId",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("partitionKey",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("reference",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("amount",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("type",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("channel",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("createDateTime",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("paymentCards",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("merchantOrderReference",1);
+        orderCollection.createIndex(index);
+        index = new BasicDBObject("amount.currency",1);
+        orderCollection.createIndex(index);
+
+
+        // Create interactionEvents Index
+        index = new BasicDBObject("partitionKey",1);
+        interactionEvents.createIndex(index);
+        index = new BasicDBObject("eventGroupType",1);
+        interactionEvents.createIndex(index);
+        index = new BasicDBObject("eventName",1);
+        interactionEvents.createIndex(index);
+        index = new BasicDBObject("status",1);
+        interactionEvents.createIndex(index);
+        index = new BasicDBObject("timestamp",1);
+        interactionEvents.createIndex(index);
+        index = new BasicDBObject("orderRef",1);
+        interactionEvents.createIndex(index);
+        index = new BasicDBObject("outletId",1);
+        interactionEvents.createIndex(index);
+        index = new BasicDBObject("merchantOrderReference",1);
+        interactionEvents.createIndex(index);
     }
 
 }
