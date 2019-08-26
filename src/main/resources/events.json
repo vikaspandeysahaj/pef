@@ -3,7 +3,7 @@
   "eventGroupType" : "GATEWAY_RISK",
   "eventName" : "GATEWAY_RISK_PRE_AUTH_ACCEPTED",
   "status" : "RemoveMeWithActualStatus",
-  "timestamp" : "2019-08-14T06:26:05.172Z",
+  "timestamp" : "RemoveMeWithActualTimeStamp",
   "orderRef" : "RemoveMeWithActualReference",
   "payload" : {
     "reference" : "d27f915a-9830-4b23-babb-6d7f86e400a5",

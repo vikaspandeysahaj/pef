@@ -10,7 +10,7 @@
   "type" : "SINGLE",
   "status" : "CLOSE",
   "channel" : "Ecommerce",
-  "createDateTime" : "2019-08-14T06:26:04.531Z",
+  "createDateTime" : "RemoveMeWithActualCreatedDateTime",
   "outletId" : "RemoveMeWithActualOutletId",
   "emailAddress" : "mustbevalidemail@foo.com",
   "paymentCards" : [
