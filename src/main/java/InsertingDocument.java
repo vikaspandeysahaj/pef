@@ -23,9 +23,7 @@ public class InsertingDocument {
     public static void main( String args[] ) throws IOException {
 
         // Creating a Mongo client
-       // MongoClient mongo = new MongoClient("localhost", 27017);
-        MongoCredential credential = MongoCredential.createScramSha256Credential("root", "mongospike", "equalexperts123".toCharArray());
-        MongoClient mongo = new MongoClient(new ServerAddress("52.21.218.229",27017), Collections.singletonList(credential));
+        MongoClient mongo = new MongoClient("localhost", 27017);
 
 
         LOGGER.info("Connected to the database successfully");
@@ -44,7 +42,7 @@ public class InsertingDocument {
         LOGGER.info(new Date().toString());
         LOGGER.info("====================================");
 
-      //  DocumentBuilder.buildAndSaveDocument(numberOfOutlets, numberOfOrdersPerOutlets, orderCollection, interactionEvents);
+        DocumentBuilder.buildAndSaveDocument(numberOfOutlets, numberOfOrdersPerOutlets, orderCollection, interactionEvents);
 
         DocumentBuilder.createIndexs(orderCollection, interactionEvents);
 
