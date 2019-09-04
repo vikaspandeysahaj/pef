@@ -86,7 +86,7 @@ public class DocumentBuilder {
                 }
             }
             orderCollection.insertMany(documents);
-            LOGGER.info("Order Created successfully");
+            LOGGER.info("OrderData Created successfully");
 
             interactionEvents.insertMany(events);
             LOGGER.info("Events Created successfully");
