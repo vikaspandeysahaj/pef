@@ -1,8 +1,11 @@
 package com.pef.models;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
+
 import javax.persistence.*;
 import java.sql.Blob;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 @Entity
@@ -25,17 +28,13 @@ public class OrderData {
     private String referrer;
     private String lastEventName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<PaymentCards> paymentCards;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Amount amount;
-
-    @Lob
-    private Blob billingAddress;
-
-    @Lob
-    private Blob orderSummary;
+    private String billingAddress;
+    private String orderSummary;
 
 
 

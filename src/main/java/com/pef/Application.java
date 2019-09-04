@@ -5,9 +5,12 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.pef.helpers.AppLogger;
 import com.pef.mongo.DocumentBuilder;
+import com.pef.mysql.QueryBuilder;
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
@@ -15,6 +18,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 @SpringBootApplication
+@Service
 public class Application implements WebMvcConfigurer {
 
     private final static Logger LOGGER = AppLogger.getAppLogger().get(Logger.GLOBAL_LOGGER_NAME);
@@ -24,7 +28,8 @@ public class Application implements WebMvcConfigurer {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
-        runMongoSpike();
+//        runMongoSpike();
+        runMysqlSpike();
     }
 
 
@@ -62,6 +67,30 @@ public class Application implements WebMvcConfigurer {
         LOGGER.info(new Date().toString());
         LOGGER.info("====================================");
         mongo.close();
+        System.exit(0);
+
+    }
+
+    @Autowired
+    private  static QueryBuilder queryBuilder;
+
+    @Autowired
+    public void setSomeThing(QueryBuilder queryBuilder1){
+        queryBuilder = queryBuilder1;
+    }
+
+    private static void runMysqlSpike() throws IOException {
+
+
+        LOGGER.info("============SEED STARTED===========");
+        LOGGER.info(new Date().toString());
+        LOGGER.info("====================================");
+
+        queryBuilder.buildAndSaveData(numberOfOutlets, numberOfOrdersPerOutlets);
+
+        LOGGER.info("============SEED ENDED===========");
+        LOGGER.info(new Date().toString());
+        LOGGER.info("====================================");
         System.exit(0);
 
     }

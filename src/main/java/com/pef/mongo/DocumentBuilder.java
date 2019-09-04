@@ -47,11 +47,11 @@ public class DocumentBuilder {
 
                 }
 
-                String orderJson = dataReader.getOrderData(outletId, orderId, dateTimeFormat.format(createdDateTime));
+                String orderJson = dataReader.getOrderData(outletId, orderId, dateTimeFormat.format(createdDateTime), "order.json");
                 documents.add(Document.parse(orderJson));
                 for (int e = 1; e <= 3; ++e) {
                     LOGGER.info("* building records for event " + status[e - 1]);
-                    String eventJson = dataReader.getEventData(outletId, orderId, status[e - 1], dateTimeFormat.format(createdDateTime));
+                    String eventJson = dataReader.getEventData(outletId, orderId, status[e - 1], dateTimeFormat.format(createdDateTime),"events.json");
                     events.add(Document.parse(eventJson));
                 }
             }

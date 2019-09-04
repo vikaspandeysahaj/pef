@@ -1,7 +1,10 @@
 package com.pef.models;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
+
 import javax.persistence.*;
 import java.sql.Blob;
+import java.sql.SQLException;
 
 @Entity
 public class PaymentCards {
@@ -16,6 +19,6 @@ public class PaymentCards {
     private String paymentType;
     private String paymentReference;
     private String cardScheme;
-    @Lob
-    private Blob payload;
+    private String  payload;
+
 }

@@ -1,16 +1,16 @@
 package com.pef.helpers;
 
-import com.pef.mongo.DocumentBuilder;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.nio.file.Files;
 
+@Component
 public class DataReader {
 
-    public static String getEventData(String outletId, String orderId, String status, String createdDateTime) {
+    public String getEventData(String outletId, String orderId, String status, String createdDateTime, String fileName) {
         try {
-            String fileName = "events.json";
-            ClassLoader classLoader = DocumentBuilder.class.getClassLoader();
+            ClassLoader classLoader = DataReader.class.getClassLoader();
             File file = new File(classLoader.getResource(fileName).getFile());
             String orderJson = new String(Files.readAllBytes(file.toPath()));
             orderJson = orderJson.replace("RemoveMeWithActualReference", orderId);
@@ -24,10 +24,9 @@ public class DataReader {
         return null;
     }
 
-    public static String getOrderData(String outletId, String orderId, String createdDateTime) {
+    public String getOrderData(String outletId, String orderId, String createdDateTime, String fileName) {
         try {
-            String fileName = "order.json";
-            ClassLoader classLoader = DocumentBuilder.class.getClassLoader();
+            ClassLoader classLoader = DataReader.class.getClassLoader();
             File file = new File(classLoader.getResource(fileName).getFile());
             String orderJson = new String(Files.readAllBytes(file.toPath()));
             orderJson = orderJson.replace("RemoveMeWithActualReference", orderId);

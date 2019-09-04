@@ -1,7 +1,6 @@
 package com.pef.models;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.sql.Date;
 
 @Entity
@@ -13,9 +12,7 @@ public class Event {
     private String eventName;
     private String status;
     private Date timestamp;
-    @OneToOne
-    private OrderData order;
-    @Lob
-    private Blob payload;
+    private String orderRef;
+    private String payload;
     private String outletId;
 }
