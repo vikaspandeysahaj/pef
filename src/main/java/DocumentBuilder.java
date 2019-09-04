@@ -12,36 +12,6 @@ public class DocumentBuilder {
 
     private final static Logger LOGGER = AppLogger.getAppLogger().get(Logger.GLOBAL_LOGGER_NAME);
 
-//    public static CustomDocuments getOrderDocument(int numberOfOutlets, int numberOfOrdersPerOutlets) {
-//
-//        String[] status = new String[]{"ACCEPTED", "AUTHORISED", "SUCCESS"};
-//        CustomDocuments customDocuments = new CustomDocuments();
-//        List<Document> documents = new ArrayList<>();
-//        List<Document> events = new ArrayList<>();
-//        for (int i = 1; i <= numberOfOutlets; ++i) {
-//            String outletId = UUID.randomUUID().toString();
-//            LOGGER.info("======================================");
-//            LOGGER.info("building records for outlet number " + i);
-//            LOGGER.info("======================================");
-//            for (int j = 1; j <= numberOfOrdersPerOutlets; ++j) {
-//                LOGGER.info("------------------------------------");
-//                LOGGER.info("# building records for order number " + j);
-//                LOGGER.info("------------------------------------");
-//                String orderId = UUID.randomUUID().toString();
-//                String orderJson = getOrderData(outletId, orderId);
-//                documents.add(Document.parse(orderJson));
-//                for (int e = 1; e <= 3; ++e) {
-//                    LOGGER.info("* building records for event " + status[e - 1]);
-//                    String eventJson = getEventData(outletId, orderId, status[e - 1]);
-//                    events.add(Document.parse(eventJson));
-//                }
-//            }
-//        }
-//        customDocuments.orderDocuments = documents;
-//        customDocuments.eventsDocuments = events;
-//        return customDocuments;
-//
-//    }
 
     private static String getEventData(String outletId, String orderId, String status, String createdDateTime) {
         try {
@@ -80,6 +50,7 @@ public class DocumentBuilder {
 
 
         String[] status = new String[]{"ACCEPTED", "AUTHORISED", "SUCCESS"};
+
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         for (int i = 1; i <= numberOfOutlets; ++i) {
@@ -90,7 +61,7 @@ public class DocumentBuilder {
             cal.set(2019,00,01);
             Date createdDateTime = cal.getTime();
 
-            String outletId = UUID.randomUUID().toString();
+            String outletId = UUID.randomUUID().toString();//outlets[i - 1];//
             LOGGER.info("======================================");
             LOGGER.info("building records for outlet number " + i);
             LOGGER.info("======================================");
@@ -100,7 +71,7 @@ public class DocumentBuilder {
                 LOGGER.info("------------------------------------");
                 String orderId = UUID.randomUUID().toString();
 
-                if(j%100 == 0) {
+                if(j%55 == 0) {
                     cal.add(Calendar.DATE, 1);
                     createdDateTime = cal.getTime();
 

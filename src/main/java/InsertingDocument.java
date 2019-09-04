@@ -17,13 +17,17 @@ public class InsertingDocument {
 
     private final static Logger LOGGER = AppLogger.getAppLogger().get(Logger.GLOBAL_LOGGER_NAME);
 
-    private static int numberOfOutlets = 9;
-    private static int numberOfOrdersPerOutlets = 10000;
+
+    private static int numberOfOutlets = 30;
+    private static int numberOfOrdersPerOutlets = 20000;
+
 
     public static void main( String args[] ) throws IOException {
 
         // Creating a Mongo client
-        MongoClient mongo = new MongoClient("localhost", 27017);
+       // MongoClient mongo = new MongoClient("localhost", 27017);
+        MongoCredential credential = MongoCredential.createScramSha256Credential("root", "mongospike", "equalexperts123".toCharArray());
+        MongoClient mongo = new MongoClient(new ServerAddress("52.21.218.229",27017), Collections.singletonList(credential));
 
 
         LOGGER.info("Connected to the database successfully");
@@ -44,7 +48,8 @@ public class InsertingDocument {
 
         DocumentBuilder.buildAndSaveDocument(numberOfOutlets, numberOfOrdersPerOutlets, orderCollection, interactionEvents);
 
-        DocumentBuilder.createIndexs(orderCollection, interactionEvents);
+
+        //DocumentBuilder.createIndexs(orderCollection, interactionEvents);
 
         LOGGER.info("============SEED ENDED===========");
         LOGGER.info(new Date().toString());
