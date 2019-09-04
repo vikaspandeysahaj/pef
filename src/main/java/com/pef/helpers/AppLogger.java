@@ -1,3 +1,5 @@
+package com.pef.helpers;
+
 import java.util.logging.*;
 
 public class AppLogger {

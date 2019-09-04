@@ -1,9 +1,11 @@
+package com.pef.mongo;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
+import com.pef.helpers.AppLogger;
+import com.pef.helpers.DataReader;
 import org.bson.Document;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
@@ -11,42 +13,10 @@ import java.util.logging.Logger;
 public class DocumentBuilder {
 
     private final static Logger LOGGER = AppLogger.getAppLogger().get(Logger.GLOBAL_LOGGER_NAME);
+    private DataReader dataReader = new DataReader();
 
 
-    private static String getEventData(String outletId, String orderId, String status, String createdDateTime) {
-        try {
-            String fileName = "events.json";
-            ClassLoader classLoader = DocumentBuilder.class.getClassLoader();
-            File file = new File(classLoader.getResource(fileName).getFile());
-            String orderJson = new String(Files.readAllBytes(file.toPath()));
-            orderJson = orderJson.replace("RemoveMeWithActualReference", orderId);
-            orderJson = orderJson.replace("RemoveMeWithActualOutletId", outletId);
-            orderJson = orderJson.replace("RemoveMeWithActualStatus", status);
-            orderJson = orderJson.replace("RemoveMeWithActualTimeStamp", createdDateTime);
-            return orderJson;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public static String getOrderData(String outletId, String orderId, String createdDateTime) {
-        try {
-            String fileName = "order.json";
-            ClassLoader classLoader = DocumentBuilder.class.getClassLoader();
-            File file = new File(classLoader.getResource(fileName).getFile());
-            String orderJson = new String(Files.readAllBytes(file.toPath()));
-            orderJson = orderJson.replace("RemoveMeWithActualReference", orderId);
-            orderJson = orderJson.replace("RemoveMeWithActualOutletId", outletId);
-            orderJson = orderJson.replace("RemoveMeWithActualCreatedDateTime", createdDateTime);
-            return orderJson;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void buildAndSaveDocument(int numberOfOutlets, int numberOfOrdersPerOutlets, MongoCollection<Document> orderCollection, MongoCollection<Document> interactionEvents) {
+    public void buildAndSaveDocument(int numberOfOutlets, int numberOfOrdersPerOutlets, MongoCollection<Document> orderCollection, MongoCollection<Document> interactionEvents) {
 
 
         String[] status = new String[]{"ACCEPTED", "AUTHORISED", "SUCCESS"};
@@ -77,11 +47,11 @@ public class DocumentBuilder {
 
                 }
 
-                String orderJson = getOrderData(outletId, orderId, dateTimeFormat.format(createdDateTime));
+                String orderJson = dataReader.getOrderData(outletId, orderId, dateTimeFormat.format(createdDateTime));
                 documents.add(Document.parse(orderJson));
                 for (int e = 1; e <= 3; ++e) {
                     LOGGER.info("* building records for event " + status[e - 1]);
-                    String eventJson = getEventData(outletId, orderId, status[e - 1], dateTimeFormat.format(createdDateTime));
+                    String eventJson = dataReader.getEventData(outletId, orderId, status[e - 1], dateTimeFormat.format(createdDateTime));
                     events.add(Document.parse(eventJson));
                 }
             }
