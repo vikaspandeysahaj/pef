@@ -22,8 +22,8 @@ import java.util.logging.Logger;
 public class Application implements WebMvcConfigurer {
 
     private final static Logger LOGGER = AppLogger.getAppLogger().get(Logger.GLOBAL_LOGGER_NAME);
-    private static int numberOfOutlets = 3;
-    private static int numberOfOrdersPerOutlets = 20;
+    private static int numberOfOutlets = 30;
+    private static int numberOfOrdersPerOutlets = 10000;
 
 
     public static void main(String[] args) throws Exception {
@@ -31,8 +31,6 @@ public class Application implements WebMvcConfigurer {
 //        runMongoSpike();
         runMysqlSpike();
     }
-
-
 
 
     public static void runMongoSpike() throws IOException {
